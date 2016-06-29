@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/json2html.js"></script>
+    <script type="text/javascript" src="js/jquery.json2html.js"></script>
+    <script src="js/core.js"></script>
+    <script>
+        $(document).ready(function(){
+            var list = new cartList("cart"); // all items in the array.
+            //alert(list.items());
+            function cart(jsondata)
+            {
+                var transform =[
+                    {"tag":"tr","id":"${id}", "data-price":"${price}", "children":[
+                        {"tag":"td","children":[
+                            {"tag":"div","class":"cart-dragger","children":[
+                                {"tag":"span","html":""},
+                                {"tag":"span","html":""}
+                            ]}
+                        ]},
+                        {"tag":"td","children":[
+                            {"tag":"div","class":"cart-img","children":[
+                                {"tag":"a","href":"product.html?uin="+"${id}","children":[
+                                    {"tag":"img","style":"width:93px;","src":"${img}","html":""}
+                                ]}
+                            ]}
+                        ]},
+                        {"tag":"td","children":[
+                            {"tag":"div","class":"cart-name","children":[
+                                {"tag":"div","html":"${name}"},
+                                {"tag":"div","class":"cart-price","html":"${price} ₪"}
+                            ]}
+                        ]},
+                        {"tag":"td","children":[
+                            {"tag":"div","class":"cart-quantity","children":[
+                                {"tag":"div","class":"qty","html":"QTY"},
+                                {"tag":"div","class":"qty-buttons","children":[
+                                    {"tag":"button","class":"qty-plus","field":"quantity","html":"+"},
+                                    {"tag":"button","class":"qty-minus","field":"quantity","html":"-"},
+                                    {"tag":"input","type":"text","name":"quantity","class":"quanty","value":"1","html":""},
+                                    {"tag":"input","class":"cart-priced","type":"hidden","value":"${price}"},
+                                    {"tag":"input","class":"cart-id","type":"hidden","value":"${id}"}
+                                ]}
+                            ]}
+                        ]}
+                    ]}
+                ];
+                $('.cart-items table').json2html(jsondata,transform);
+            }
+
+            jdata = list.items();
+            cart('['+jdata+']');
+            total();
+            qty();
+            $('.quanty').blur(function(){
+                if($(this).val()>100){
+                    $(this).val(100);
+                }
+                total();
+            });
+
+            //list stories
+            $.get("http://nadiros.co.il/ksp/store.php",{},store
+            );
+
+            function store(data)
+            {
+                var transform =[
+                    {"tag":"option","value":"${id}","html":"${Name}"}
+                ];
+
+                //$('.cities').json2html(data,transform);
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="cat-menu pull-left">
+            <!-- Single button -->
+            <div class="btn-group">
+                <button type="button" class="dropdown-toggle navbar-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <ul class="dropdown-menu">
+                    <li><a href="category.html#computer">מחשבים</a></li><!--//001-->
+                    <li><a href="category.html#laptop">מחשבים ניידים</a></li><!--//002-->
+                    <li><a href="category.html#mobile">טלפונים סלולרים ושעונים חכמים</a></li><!--//003-->
+                    <li><a href="category.html#tablets">טאבלטים</a></li><!--//004-->
+                    <li><a href="category.html#play">קונסולות משחק ומשחקים</a></li><!--//005-->
+                    <li><a href="category.html#comparts">ציוד היקפי</a></li><!--//006-->
+                    <li><a href="category.html#camera">מצלמות וציוד נלווה</a></li><!--//007-->
+                    <li><a href="category.html#house">בית חכם</a></li><!--//008-->
+                    <li><a href="category.html#appliances">מוצרי חשמל</a></li><!--//009-->
+                    <li><a href="category.html#sportvelik">ספורט ואופנים</a></li><!--//010-->
+                    <li><a href="category.html#sound">ציוד שמע ונגנים</a></li><!--//011-->
+                    <li><a href="category.html#sdcard">גיבוי ואחסון</a></li><!--//012-->
+                    <li><a href="category.html#network">ציוד רשתות</a></li><!--//013-->
+                    <li><a href="category.html#programs">חומרה</a></li><!--//014-->
+                    <li><a href="category.html#parts">אביזרים</a></li><!--//015-->
+                    <li><a href="category.html#sumki">תצוגה ועודפים</a></li><!--//016-->
+                </ul>
+            </div>
+        </div>
+        <div class="search-logo"></div>
+        <div class="search-cnt">
+            <form action="#">
+                <div class="search">
+                    <input type="text" class="search-txt" placeholder="חפשו מוצר \ מק”ט"/>
+                    <button type="submit" class="search-btn"> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="preloader">
+        <div class="preloader-img"><img src="img/preloader.gif"/></div>
+    </div>
+    <div class="bottom">
+        <div class="menu-item">
+            <a href="index.html" >
+                <div class="mi-img mi-home "></div>
+                <div class="mi-text">עמוד ראשי</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="table.html">
+                <div class="mi-img mi-bonus"></div>
+                <div class="mi-text">קופונים</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="cart.html" class="active">
+                <div class="mi-img mi-cart"><span class="badge bg-red" id="cartitems">0</span></div>
+                <div class="mi-text">סל קניות</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="filial.html">
+                <div class="mi-img mi-metka"></div>
+                <div class="mi-text">סניפים</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="message.html">
+                <div class="mi-img mi-message"></div>
+                <div class="mi-text">צור קשר</div>
+            </a>
+        </div>
+    </div>
+    <div class="inners">
+        <div class="cart">
+            <div class="cart-title">עגלת קניות</div>
+            <div class="cart-items">
+                <table>
+                </table>
+                <div class="cart-summ">
+                    <div class="pull-right">סך הכל:</div>
+                    <div class="pull-left total">0 ₪</div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="cart-form">
+                    <div class="cf-title">פרטי מזמין</div>
+                    <form action="#">
+                        <div class="cf-row">
+                            <div class="cf-inputs cf-inputs-1"><input type="text" placeholder="שם פרטי"></div>
+                            <div class="cf-inputs cf-inputs-2"><input type="text" placeholder="שם משפחה"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="cf-row">
+                            <div class="cf-inputs cf-inputs-1"><input type="text" placeholder="כתובת מגורים"></div>
+                            <div class="cf-inputs cf-inputs-2"><input type="text" placeholder="טלפון זמין"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="cf-row">
+                            <div class="cf-inputs"><input type="text" placeholder="דוא''ל"></div>
+                        </div>
+                        <div class="cf-row">אנא בחרו סניף בו תרצו לאסוף את המוצר:</div>
+                        <div class="cf-row">
+                            <div class="cf-inputs"><select class="cities">
+                                <option value="">משלוח עד הבית בעלות 16 שקל</option>
+                                <option>אשדוד</option>
+                                <option value="19">אשדוד</option><option value="69">אשדוד מרכז</option><option value="20">אשקלון</option><option value="21">באר שבע</option><option value="64">באר שבע מזרח</option><option value="40">בילו רחובות ק.עקרון</option><option value="52">בית שמש</option><option value="58">הרצליה</option><option value="22">חדרה</option><option value="23">חולון</option><option value="24">חיפה</option><option value="53">חיפה מת''מ</option><option value="55">חיפה מת''מ</option><option value="62">חיפה סטלה מאריס</option><option value="25">טבריה</option><option value="27">ירושלים הר חוצבים</option><option value="57">ירושלים קינג ג'ורג'</option><option value="68">ירושלים תלפיות</option><option value="29">כפר סבא</option><option value="72">כפר סבא הירוקה</option><option value="41">כרמיאל</option><option value="71">מודיעין</option><option value="30">נהריה</option><option value="32">נצרת עילית</option><option value="31">נשר</option><option value="33">נתניה</option><option value="67">נתניה ק.השרון</option><option value="34">עפולה</option><option value="35">פתח תקווה</option><option value="61">פתח תקווה ד.רבין</option><option value="70">צומת ק.אתא</option><option value="60">קריון ק.ביאליק</option><option value="37">קרית אונו</option><option value="36">קרית אתא</option><option value="38">קרית חיים</option><option value="43">ראשון לציון</option><option value="66">ראשון לציון מרכז</option><option value="65">רחובות</option><option value="39">רמת אביב</option><option value="45">רמת גן</option><option value="42">רמת השרון</option><option value="44">רעננה</option><option value="47">תל אביב דיזינגוף</option><option value="56">תל אביב החשמונאים</option><option value="46">תל אביב המסגר</option><option value="59">תל אביב רמת החייל</option>
+                            </select></div>
+                        </div>
+                        <div class="cf-row">מספר תשלומים:</div>
+                        <div class="cf-row">
+                            <div class="cf-inputs"><select>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select></div>
+                        </div>
+                        <div class="cf-row">
+                            <div class="cf-submit"><input type="submit" value="שלח הזמנה"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

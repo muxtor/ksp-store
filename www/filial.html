@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stories</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/json2html.js"></script>
+    <script type="text/javascript" src="js/jquery.json2html.js"></script>
+    <script src="js/core.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            showLoader();
+            //index last products
+            $.get("http://nadiros.co.il/ksp/store.php",{},store
+            ).fail(function() {
+                        hideLoader();
+                    });
+
+            function store(data)
+            {
+                var transform =[
+                    {"tag":"tr","children":[
+                        {"tag":"td","html":"${Name}"},
+                        {"tag":"td","html":"${City}"},
+                        {"tag":"td","children":[
+                            {"tag":"a","class":"to-store","data-title":"${Name}","data-city":"${City}","data-img":"${img}","data-mon":"${mon}","data-phone":"${phone}","data-lon":"${lon}","data-lat":"${lat}","id":"${id}","href":"#${id}","html":"למידע"}
+                        ]}
+                    ]}
+                ];
+
+                $('.table-list tbody').json2html(data,transform);
+                $.getScript("js/core.js");
+                hideLoader();
+            }
+
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="cat-menu pull-left">
+            <!-- Single button -->
+            <div class="btn-group">
+                <button type="button" class="dropdown-toggle navbar-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <ul class="dropdown-menu">
+                    <li><a href="category.html#computer">מחשבים</a></li><!--//001-->
+                    <li><a href="category.html#laptop">מחשבים ניידים</a></li><!--//002-->
+                    <li><a href="category.html#mobile">טלפונים סלולרים ושעונים חכמים</a></li><!--//003-->
+                    <li><a href="category.html#tablets">טאבלטים</a></li><!--//004-->
+                    <li><a href="category.html#play">קונסולות משחק ומשחקים</a></li><!--//005-->
+                    <li><a href="category.html#comparts">ציוד היקפי</a></li><!--//006-->
+                    <li><a href="category.html#camera">מצלמות וציוד נלווה</a></li><!--//007-->
+                    <li><a href="category.html#house">בית חכם</a></li><!--//008-->
+                    <li><a href="category.html#appliances">מוצרי חשמל</a></li><!--//009-->
+                    <li><a href="category.html#sportvelik">ספורט ואופנים</a></li><!--//010-->
+                    <li><a href="category.html#sound">ציוד שמע ונגנים</a></li><!--//011-->
+                    <li><a href="category.html#sdcard">גיבוי ואחסון</a></li><!--//012-->
+                    <li><a href="category.html#network">ציוד רשתות</a></li><!--//013-->
+                    <li><a href="category.html#programs">חומרה</a></li><!--//014-->
+                    <li><a href="category.html#parts">אביזרים</a></li><!--//015-->
+                    <li><a href="category.html#sumki">תצוגה ועודפים</a></li><!--//016-->
+                </ul>
+            </div>
+        </div>
+        <div class="search-logo"></div>
+        <div class="search-cnt">
+            <form action="#">
+                <div class="search">
+                    <input type="text" class="search-txt" placeholder="חפשו מוצר \ מק”ט"/>
+                    <button class="search-btn"> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="preloader">
+        <div class="preloader-img"><img src="img/preloader.gif"/></div>
+    </div>
+    <div class="bottom">
+        <div class="menu-item">
+            <a href="index.html">
+                <div class="mi-img mi-home "></div>
+                <div class="mi-text">עמוד ראשי</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="table.html">
+                <div class="mi-img mi-bonus"></div>
+                <div class="mi-text">קופונים</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="cart.html">
+                <div class="mi-img mi-cart"><span class="badge bg-red" id="cartitems">0</span></div>
+                <div class="mi-text">סל קניות</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="filial.html"  class="active">
+                <div class="mi-img mi-metka"></div>
+                <div class="mi-text">סניפים</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="message.html">
+                <div class="mi-img mi-message"></div>
+                <div class="mi-text">צור קשר</div>
+            </a>
+        </div>
+    </div>
+    <div class="inners">
+        <div class="stories">
+            <div class="title">סניפי KSP מחשבים וסלולר</div>
+            <div class="table-list">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>עיר               </td>
+                        <td> כתובת  </td>
+                        <td>למידע</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="store" style="display: none;">
+            <div class="title store-title">כתובת ושעות פעילות</div>
+            <div><img class="store-img" src="" style="width: 100%; margin-top: 5px;"/></div>
+            <div class="title">כתובת ושעות פעילות</div>
+            <div class="filial">
+                <div>רחוב צה”ל 1 מול משרד הרישוי אשדוד מרכז</div>
+                <div>ימים א’-ה’:  <span class="store-mon"></span></div>
+                <div>ימי ו’ וחג:   <span class="store-mon"></span></div>
+                <div class="f-buttons">
+                    <div class="dostavka">
+                        <div class="f-wrap">
+                            <div class="ico-dostavka"></div>
+                            <button><a href="">נווט לסניף</a></button>
+                        </div>
+                    </div>
+                    <div class="call">
+                        <div class="f-wrap">
+                            <div class="ico-call"></div>
+                            <button><a href="">חייג לסניף</a></button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="color: #0c78bc;">שימו לב! בסניף זה אין שירותי מעבדה</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
