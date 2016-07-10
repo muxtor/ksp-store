@@ -959,9 +959,12 @@ table .s_td {
     .categories .cat .c-title-box {
         height: 45px;
     }
+    .products .p-items .p-item{
+        min-height: 290px;
+    }
     .products .p-items .p-desc{
         color: #767676;
-        height: 100px;
+        height: 90px;
         overflow: hidden;
     }
     /*Cart*/
