@@ -95,54 +95,72 @@ $(document).ready(function(){
         hideLoader();
     }
 
-
+    
 
 });
+var cartList = function(storageName) {
+    var storage = window.localStorage;
+    //When the cookie is saved the items will be a comma seperated string
+    var cookie = storage.getItem(storageName);
+    //Load the items or a new array if null.
+    if(cookie==null){
+        var items = new Object();
+    }else{
+        var items = JSON.parse(cookie);
+    }
+    //var items = cookie ? cookie : new Array();
 
-//This is not production quality, its just demo code.
-var cartList = function(cookieName) {
-//When the cookie is saved the items will be a comma seperated string
-//So we will split the cookie by comma to get the original array
-    var cookie = $.cookie(cookieName);
-//Load the items or a new array if null.
-    var items = cookie ? cookie.split(/,/) : new Array();
-
-//Return a object that we can use to access the array.
-//while hiding direct access to the declared items array
-//this is called closures see http://www.jibbering.com/faq/faq_notes/closures.html
     return {
-        "add": function(val) {
+        "add": function(id,val) {
+            idme = "id_"+id;
             //Add to the items.
-            items.push(val);
-            //Save the items to a cookie.
-            //EDIT: Modified from linked answer by Nick see
-            //      http://stackoverflow.com/questions/3387251/how-to-store-array-in-jquery-cookie
-            $.cookie(cookieName, items.join(','));
+            items[idme]= val;
+            storage.removeItem(storageName);
+            storage.setItem(storageName, JSON.stringify(items));
             countSet();
         },
-        "remove": function (val) {
-            //EDIT: Thx to Assef and luke for remove.
-            indx = items.indexOf(val);
-            if(indx!=-1) items.splice(indx, 1);
-            $.cookie(cookieName, items.join(','));
+        "remove": function (id) {
+            idme = "id_"+id;
+            items = $.grep(items, function(item) {
+                return item[idme] !== id;
+            });
+            storage.setItem(storageName, items);
+
             countSet();
+        },
+        "countItem": function(id) {
+            idme = "id_"+id;
+            //Get all the items.
+            if(items[idme]){
+                cnt = JSON.parse(items[idme]);
+                var countItem = Number(cnt.count)+1;
+            }else{
+                var countItem =  1 ;
+            }
+            return countItem;
         },
         "clear": function() {
             items = null;
-            //clear the cookie.
-            $.cookie(cookieName, null);
+            //clear the storage.
+            storage.removeItem(storageName);
             countSet();
         },
         "items": function() {
             //Get all the items.
-            return items;
+            return storage.getItem(storageName);
         },
         "count": function() {
+            var count = 0;
+            $.each( items, function( key, value ) {
+                var element = JSON.parse(value);
+                count = count + Number(element.count);
+            });
             //Get all the items.
-            return Object.keys(items).length/4;
+            return count;
         }
     }
 }
+
 
 function total (){
     function getQunty (qtyIndex){
@@ -203,6 +221,7 @@ function qty(){
 }
 function countSet(){
     var counts = new cartList("cart");
+    //console.log(window.localStorage);
     $('#cartitems').html(counts.count());
 }
 $(document).ready(function(){
