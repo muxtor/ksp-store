@@ -226,4 +226,8 @@ function countSet(){
 }
 $(document).ready(function(){
     countSet();
-})
+});
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    //device.uuid;
+}
