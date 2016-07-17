@@ -237,7 +237,7 @@ $(document).ready(function(){
             cnt = Object.keys(pushes).length;
             if(cnt > 0){
                 $.each(pushes, function( index, value ) {
-                    pushIt(value);
+                    //pushIt(value);
                     navigator.notification.alert(
                         value.push,         // message
                         null,                 // callback
@@ -253,25 +253,6 @@ $(document).ready(function(){
             var pushNotification;
 
             function onDeviceReady() {
-                $("#app-status-ul").append('<li>deviceready event received</li>');
-
-                document.addEventListener("backbutton", function(e)
-                {
-                    $("#app-status-ul").append('<li>backbutton event received</li>');
-
-                    if( $("#home").length > 0)
-                    {
-                        // call this to get a new token each time. don't call it to reuse existing token.
-                        //pushNotification.unregister(successHandler, errorHandler);
-                        e.preventDefault();
-                        navigator.app.exitApp();
-                    }
-                    else
-                    {
-                        navigator.app.backHistory();
-                    }
-                }, false);
-
                 try
                 {
                     pushNotification = window.plugins.pushNotification;
