@@ -238,12 +238,12 @@ $(document).ready(function(){
             if(cnt > 0){
                 $.each(pushes, function( index, value ) {
                     pushIt(value);
-                    /*navigator.notification.alert(
+                    navigator.notification.alert(
                         value.push,         // message
                         null,                 // callback
                         'Title:'+value.push,           // title
                         'OK'                  // buttonName
-                    );*/
+                    );
                 });
             }
         }
@@ -380,7 +380,7 @@ $(document).ready(function(){
             function errorHandler (error) {
                 $("#app-status-ul").append('<li>error:'+ error +'</li>');
             }
-            
+
             document.addEventListener('deviceready', onDeviceReady, true);
         }
 
