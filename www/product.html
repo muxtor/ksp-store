@@ -125,7 +125,7 @@
                 //$('.shareit span').attr('st_title',$('.product-title').text());
                 $('.shareit .fbs').attr('href','http://ksp.co.il/share.php?uin='+$_GET("uin"));
                 //$('.shareit .wapps').attr('data-action','http://ksp.co.il/index.php?uin='+$_GET("uin"));
-                $('.shareit .wapps').attr('href','whatsapp://send?text='+$('.product-title').text()+' http://ksp.co.il/index.php?uin='+$_GET("uin"));
+                //$('.shareit .wapps').attr('href','whatsapp://send?text='+$('.product-title').text()+' http://ksp.co.il/index.php?uin='+$_GET("uin"));
             }
             //$.getJSON('product.php?uin='+$_GET("uin"),item);
 
@@ -258,9 +258,10 @@
             <div id="tech_dets" style="clear: both;">
                 <div style="height: 42px; line-height: 30px;/*cursor: pointer;*/" class="titlebox">
                     <div style="float: left;" class="shareit">
-                        <a alt="Whatsapp" class="wapps" href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share"
-                           style="background-image: url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
-    height: 32px; width: 32px; position: relative;"></a>
+                        <button class="wapps" onclick="window.plugins.socialsharing.shareViaWhatsApp(+$('.product-title').text(), null /* img */, ' http://ksp.co.il/index.php?uin='+$_GET('uin'), function() {console.log('share ok')}, function(errormsg){alert(errormsg)})"
+                                style="border: none; background: #47A3DA url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
+    height: 32px; width: 32px; position: relative;"
+                        ></button>
                         <a alt="Facebook" class="fbs" href="http://ksp.co.il/share.php?uin=26115"
                                 style="background-image: url('http://w.sharethis.com/images/facebook_32.png'); display: inline-block;
     height: 32px; width: 32px; position: relative;"></a>
