@@ -258,7 +258,11 @@
             <div id="tech_dets" style="clear: both;">
                 <div style="height: 42px; line-height: 30px;/*cursor: pointer;*/" class="titlebox">
                     <div style="float: left;" class="shareit">
-                        <button class="wapps" onclick="window.plugins.socialsharing.shareViaWhatsApp(+$('.product-title').text(), null /* img */, ' http://ksp.co.il/index.php?uin='+$_GET('uin'), function() {console.log('share ok')}, function(errormsg){alert(errormsg)})"
+                        <!--<button class="wapps" onclick="window.plugins.socialsharing.shareViaWhatsApp(+$('.product-title').text(), null /* img */, ' http://ksp.co.il/index.php?uin='+$_GET('uin'), function() {console.log('share ok')}, function(errormsg){alert(errormsg)})"
+                                style="border: none; background: #47A3DA url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
+    height: 32px; width: 32px; position: relative;"
+                        ></button>-->
+                        <button class="wapps" onclick="window.plugins.socialsharing.share($('.product-desc').text(), $('.product-title').text());"
                                 style="border: none; background: #47A3DA url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
     height: 32px; width: 32px; position: relative;"
                         ></button>
