@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class SocialSharing extends CordovaPlugin {
   private static final int ACTIVITY_CODE_SEND__OBJECT = 2;
   private static final int ACTIVITY_CODE_SENDVIAEMAIL = 3;
   private static final int ACTIVITY_CODE_SENDVIAWHATSAPP = 4;
+  private static final String WWW = "www/";
+  private static final String RELATIVE_PREFIX = "./";
 
   private CallbackContext _callbackContext;
 
@@ -59,9 +62,12 @@ public class SocialSharing extends CordovaPlugin {
 
   private abstract class SocialSharingRunnable implements Runnable {
     public CallbackContext callbackContext;
-
+    public String currentPageUrl;
     SocialSharingRunnable(CallbackContext cb) {
       this.callbackContext = cb;
+    }
+    public URI getCurrentPageURI() {
+      return URI.create(currentPageUrl);
     }
   }
 
@@ -124,7 +130,8 @@ public class SocialSharing extends CordovaPlugin {
   private boolean invokeEmailIntent(final CallbackContext callbackContext, final String message, final String subject, final JSONArray to, final JSONArray cc, final JSONArray bcc, final JSONArray files) throws JSONException {
 
     final SocialSharing plugin = this;
-    cordova.getThreadPool().execute(new SocialSharingRunnable(callbackContext) {
+
+    executeInThreadPool(new SocialSharingRunnable(callbackContext) {
       public void run() {
         final Intent draft = new Intent(Intent.ACTION_SEND_MULTIPLE);
         if (notEmpty(message)) {
@@ -155,7 +162,7 @@ public class SocialSharing extends CordovaPlugin {
             if (dir != null) {
               ArrayList<Uri> fileUris = new ArrayList<Uri>();
               for (int i = 0; i < files.length(); i++) {
-                final Uri fileUri = getFileUriAndSetType(draft, dir, files.getString(i), subject, i);
+                final Uri fileUri = getFileUriAndSetType(draft, dir, files.getString(i), subject, i, getCurrentPageURI());
                 if (fileUri != null) {
                   fileUris.add(fileUri);
                 }
@@ -184,6 +191,17 @@ public class SocialSharing extends CordovaPlugin {
     });
 
     return true;
+  }
+
+  private void executeInThreadPool(final SocialSharingRunnable runnable) {
+    // webView methods must be called from the UI thread
+    cordova.getActivity().runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        runnable.currentPageUrl = webView.getUrl().replaceFirst("[#?].*", "");
+        cordova.getThreadPool().execute(runnable);
+      }
+    });
   }
 
   private String getDownloadDir() throws IOException {
@@ -226,7 +244,7 @@ public class SocialSharing extends CordovaPlugin {
     final CordovaInterface mycordova = cordova;
     final CordovaPlugin plugin = this;
 
-    cordova.getThreadPool().execute(new SocialSharingRunnable(callbackContext) {
+    executeInThreadPool(new SocialSharingRunnable(callbackContext) {
       public void run() {
         String message = msg;
         final boolean hasMultipleAttachments = files.length() > 1;
@@ -240,7 +258,7 @@ public class SocialSharing extends CordovaPlugin {
               ArrayList<Uri> fileUris = new ArrayList<Uri>();
               Uri fileUri = null;
               for (int i = 0; i < files.length(); i++) {
-                fileUri = getFileUriAndSetType(sendIntent, dir, files.getString(i), subject, i);
+                fileUri = getFileUriAndSetType(sendIntent, dir, files.getString(i), subject, i, getCurrentPageURI());
                 if (fileUri != null) {
                   fileUris.add(fileUri);
                 }
@@ -362,38 +380,21 @@ public class SocialSharing extends CordovaPlugin {
     toast.show();
   }
 
-  private Uri getFileUriAndSetType(Intent sendIntent, String dir, String image, String subject, int nthFile) throws IOException {
+  private Uri getFileUriAndSetType(Intent sendIntent, String dir, String image, String subject, int nthFile, URI currentPageURI) throws IOException {
     // we're assuming an image, but this can be any filetype you like
     String localImage = image;
-     if( image.endsWith("mp4") || image.endsWith("mov") || image.endsWith("3gp")  ){
+    if (image.endsWith("mp4") || image.endsWith("mov") || image.endsWith("3gp")  ){
       sendIntent.setType("video/*");
-    }else {
+    } else {
       sendIntent.setType("image/*");
     }
-    
-    if (image.startsWith("http") || image.startsWith("www/")) {
-      String filename = getFileName(image);
-      localImage = "file://" + dir + "/" + filename;
-      if (image.startsWith("http")) {
-        // filename optimisation taken from https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin/pull/56
-        URLConnection connection = new URL(image).openConnection();
-        String disposition = connection.getHeaderField("Content-Disposition");
-        if (disposition != null) {
-          final Pattern dispositionPattern = Pattern.compile("filename=([^;]+)");
-          Matcher matcher = dispositionPattern.matcher(disposition);
-          if (matcher.find()) {
-            filename = matcher.group(1).replaceAll("[^a-zA-Z0-9._-]", "");
-            if (filename.length() == 0) {
-              // in this case we can't determine a filetype so some targets (gmail) may not render it correctly
-              filename = "file";
-            }
-            localImage = "file://" + dir + "/" + filename;
-          }
-        }
-        saveFile(getBytes(connection.getInputStream()), dir, filename);
-      } else {
-        saveFile(getBytes(webView.getContext().getAssets().open(image)), dir, filename);
-      }
+
+    if (image.startsWith("http")) {
+      localImage = saveFromWeb(dir, image);
+    } else if (image.startsWith(WWW)) {
+      localImage = saveFromRelativeLocal(dir, image.substring(WWW.length()), currentPageURI);
+    } else if (image.startsWith(RELATIVE_PREFIX)) {
+      localImage = saveFromRelativeLocal(dir, image.substring(RELATIVE_PREFIX.length()), currentPageURI);
     } else if (image.startsWith("data:")) {
       // safeguard for https://code.google.com/p/android/issues/detail?id=7901#c43
       if (!image.contains(";base64,")) {
@@ -440,6 +441,42 @@ public class SocialSharing extends CordovaPlugin {
       sendIntent.setDataAndType(Uri.fromFile(new File(image)), type);
     }
     return Uri.parse(localImage);
+  }
+
+  private String saveFromRelativeLocal(String dir, String image, URI currentPageURI) throws IOException {
+    String filename = getFileName(image);
+    String localImage = "file://" + dir + "/" + filename;
+    File currentPageDir = new File(currentPageURI).getParentFile();
+    File relativeImageFile = new File(currentPageDir, image);
+    InputStream imageStream = relativeImageFile.exists()
+		  ? new FileInputStream(relativeImageFile)
+		  : webView.getContext().getAssets().open(image);
+    saveFile(getBytes(imageStream), dir, filename);
+    return localImage;
+  }
+
+  private String saveFromWeb(String dir, String imageUrl) throws IOException {
+    String localImage;
+    String filename = getFileName(imageUrl);
+    localImage = "file://" + dir + "/" + filename;
+    // filename optimisation taken from https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin/pull/56
+    URLConnection connection = new URL(imageUrl).openConnection();
+    String disposition = connection.getHeaderField("Content-Disposition");
+    if (disposition != null) {
+      final Pattern dispositionPattern = Pattern.compile("filename=([^;]+)");
+      Matcher matcher = dispositionPattern.matcher(disposition);
+      if (matcher.find()) {
+        filename = matcher.group(1).replaceAll("[^a-zA-Z0-9._-]", "");
+        if (filename.length() == 0) {
+          // in this case we can't determine a filetype so some targets (gmail) may not render it correctly
+          filename = "file";
+        }
+        localImage = "file://" + dir + "/" + filename;
+      }
+    }
+    saveFile(getBytes(connection.getInputStream()), dir, filename);
+
+    return localImage;
   }
 
   private String getMIMEType(String fileName) {
@@ -538,7 +575,7 @@ public class SocialSharing extends CordovaPlugin {
     }
     final String shareMessage = message;
     final SocialSharing plugin = this;
-    cordova.getThreadPool().execute(new SocialSharingRunnable(callbackContext) {
+    executeInThreadPool(new SocialSharingRunnable(callbackContext) {
       public void run() {
         final Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:" + number));
@@ -555,7 +592,7 @@ public class SocialSharing extends CordovaPlugin {
               ArrayList<Uri> fileUris = new ArrayList<Uri>();
               Uri fileUri = null;
               for (int i = 0; i < files.length(); i++) {
-                fileUri = getFileUriAndSetType(intent, dir, files.getString(i), subject, i);
+                fileUri = getFileUriAndSetType(intent, dir, files.getString(i), subject, i, getCurrentPageURI());
                 if (fileUri != null) {
                   fileUris.add(fileUri);
                 }
@@ -600,7 +637,8 @@ public class SocialSharing extends CordovaPlugin {
     final String image = null; // options.optString("image");
     final String phonenumbers = getPhoneNumbersWithManufacturerSpecificSeparators(p_phonenumbers);
     final SocialSharing plugin = this;
-    cordova.getThreadPool().execute(new SocialSharingRunnable(callbackContext) {
+
+    executeInThreadPool(new SocialSharingRunnable(callbackContext) {
       public void run() {
         Intent intent;
 
@@ -621,7 +659,7 @@ public class SocialSharing extends CordovaPlugin {
 
         try {
           if (image != null && !"".equals(image)) {
-            final Uri fileUri = getFileUriAndSetType(intent, getDownloadDir(), image, subject, 0);
+            final Uri fileUri = getFileUriAndSetType(intent, getDownloadDir(), image, subject, 0, getCurrentPageURI());
             if (fileUri != null) {
               intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             }

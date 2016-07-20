@@ -1,4 +1,6 @@
-﻿function SocialSharing() {
+﻿var cordova = require('cordova');
+
+function SocialSharing() {
 }
 
 // Override this method (after deviceready) to set the location where you want the iPad popup arrow to appear.

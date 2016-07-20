@@ -7,13 +7,13 @@
         "files": {}
     },
     "installed_plugins": {
+        "SocialSharingTwo": {
+            "PACKAGE_NAME": "com.kspstore.start"
+        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.kspstore.start"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.kspstore.start"
-        },
-        "SocialSharing-PhoneGap-Plugin": {
             "PACKAGE_NAME": "com.kspstore.start"
         }
     },
