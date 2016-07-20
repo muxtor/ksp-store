@@ -38,10 +38,12 @@
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
+  <gap:plugin name="de.appplant.cordova.plugin.email-composer" source="npm"/>
   <icon src="icon.png"/>
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="nl.x-services.plugins.socialsharing" version="5"/>
+
   <!-- Allow links to example.com -->
   <allow-navigation href="*" />
   <allow-navigation href="http://nadiros.co.il/*" />
