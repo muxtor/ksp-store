@@ -201,15 +201,18 @@ function qty(){
         fieldName = $(this).attr('field');
         // Get its current value
         var currentVal = parseInt($(this).parent().find('input[name='+fieldName+']').val());
+        var cartid = $(this).parent().find('.cart-id').val();
         // If is not undefined
         if (!isNaN(currentVal)) {
             if(currentVal<100){
                 // Increment
                 $(this).parent().find('input[name='+fieldName+']').val(currentVal + 1);
+                $('.id_'+cartid).html(currentVal + 1);
             }
         } else {
             // Otherwise put a 0 there
             $(this).parent().find('input[name='+fieldName+']').val(1);
+            $('.id_'+cartid).html(1);
         }
         total();
     });
@@ -219,15 +222,18 @@ function qty(){
         e.preventDefault();
         // Get the field name
         fieldName = $(this).attr('field');
+        var cartid = $(this).parent().find('.cart-id').val();
         // Get its current value
         var currentVal = parseInt($(this).parent().find('input[name='+fieldName+']').val());
         // If it isn't undefined or its greater than 0
         if (!isNaN(currentVal) && currentVal > 1) {
             // Decrement one
             $(this).parent().find('input[name='+fieldName+']').val(currentVal - 1);
+            $('.id_'+cartid).html(currentVal - 1);
         } else {
             // Otherwise put a 0 there
             $(this).parent().find('input[name='+fieldName+']').val(1);
+            $('.id_'+cartid).html(1);
         }
         total();
     });
