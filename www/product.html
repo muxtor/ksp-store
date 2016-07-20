@@ -17,19 +17,10 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            document.addEventListener("deviceready", shareIt, false);
-            function shareIt() {
-                alert('shareIt');
-                window.plugins.socialsharing.share ($('.product-desc').text(), $('.product-title').text(), null, null, onSuccess, onError);
-            }
-            document.addEventListener("deviceready", shareItTwo, false);
+            //document.addEventListener("deviceready", shareItTwo, false);
             function shareItTwo() {
-                alert('shareItTwo');
                 window.plugins.socialsharing.shareViaWhatsApp ($('.product-title').text(), null, null, onSuccess, onError);
             }
-            $('.watsappone').click(function () {
-                shareIt();
-            });
             $('.wappstwo').click(function () {
                 shareItTwo();
             });
@@ -289,9 +280,6 @@
     height: 32px; width: 32px; position: relative;"
                         ></button>-->
                         <button class="wapps wappstwo"
-                                style="border: none; background: #47A3DA url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
-    height: 32px; width: 32px; position: relative;"
-                        ></button><button class="wapps watsappone"
                                 style="border: none; background: #47A3DA url('http://w.sharethis.com/images/whatsapp_32.png'); display: inline-block;
     height: 32px; width: 32px; position: relative;"
                         ></button>
