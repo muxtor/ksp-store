@@ -121,10 +121,24 @@ var cartList = function(storageName) {
         },
         "remove": function (id) {
             idme = "id_"+id;
-            items = $.grep(items, function(item) {
-                return item[idme] !== id;
+            var count = 0;
+            $.each( items, function( key, value ) {
+                count = count + 1;
             });
-            storage.setItem(storageName, items);
+            if(count==1){
+                window.localStorage.clear();
+            }else{
+                var newItems = new Object();
+                $.each( items, function( key, value ) {
+                    if(key==idme){
+
+                    }else{
+                        newItems[key]= value;
+                    }
+                });
+                storage.removeItem(storageName);
+                storage.setItem(storageName, JSON.stringify(newItems));
+            }
 
             countSet();
         },

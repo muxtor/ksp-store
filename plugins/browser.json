@@ -7,7 +7,7 @@
         "files": {}
     },
     "installed_plugins": {
-        "SocialSharingTwo": {
+        "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.kspstore.start"
         },
         "cordova-plugin-whitelist": {
