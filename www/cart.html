@@ -24,15 +24,13 @@
                 var transform =[
                     {"tag":"tr","id":"${id}", "data-price":"${price}", "children":[
                         {"tag":"td","children":[
-                            {"tag":"a","href":"#","data-id":"${id}","class":"deleteItem","children":[
-                                {"tag":"span", "class":"glyphicon glyphicon-remove-circle","html":""}
-                            ],"html":"&nbsp;"}
-                        ]},
-                        {"tag":"td","children":[
                             {"tag":"div","class":"cart-img","children":[
                                 {"tag":"a","href":"product.html?uin="+"${id}","children":[
                                     {"tag":"img","style":"width:93px;","src":"${img}","html":""}
-                                ]}
+                                ]},
+                                {"tag":"a","href":"#","data-id":"${id}","class":"deleteItem","children":[
+                                    {"tag":"span", "class":"glyphicon glyphicon-remove-circle","html":""}
+                                ],"html":"&nbsp;"}
                             ]}
                         ]},
                         {"tag":"td","children":[
@@ -96,7 +94,15 @@
         })
     </script>
     <style>
+        .cart-img{
+            position: relative;
+            display: block!important;
+            margin-right: 10px;
+        }
         .deleteItem{
+            top: -16px;
+            right: -16px;
+            position: absolute;
             font-size: 24px;
             color: #cc0000;
         }
