@@ -20,12 +20,12 @@
             document.addEventListener("deviceready", shareIt, false);
             function shareIt() {
                 alert('shareIt');
-                window.plugins.socialsharing.share ($('.product-desc').text(), $('.product-title').text(), null, onSuccess, onError);
+                window.plugins.socialsharing.share ($('.product-desc').text(), $('.product-title').text(), null, null, onSuccess, onError);
             }
             document.addEventListener("deviceready", shareItTwo, false);
             function shareItTwo() {
                 alert('shareItTwo');
-                window.plugins.socialsharing.shareViaWhatsApp ($('.product-desc').text(), $('.product-title').text(), null, onSuccess, onError);
+                window.plugins.socialsharing.shareViaWhatsApp ($('.product-title').text(), null, null, onSuccess, onError);
             }
             $('.watsappone').click(function () {
                 shareIt();
