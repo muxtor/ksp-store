@@ -19,7 +19,7 @@
         $(document).ready(function(){
             //document.addEventListener("deviceready", shareItTwo, false);
             function shareItTwo() {
-                window.plugins.socialsharing.shareViaWhatsApp ($('.product-title').text(), null, null, onSuccess, onError);
+                window.plugins.socialsharing.shareViaWhatsApp ($('.head-title .product-title').text(), null, 'http://ksp.co.il/?uin='+$_GET("uin"), onSuccess, onError);
             }
             $('.wappstwo').click(function () {
                 shareItTwo();
