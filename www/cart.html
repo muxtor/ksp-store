@@ -24,15 +24,9 @@
                 var transform =[
                     {"tag":"tr","id":"${id}", "data-price":"${price}", "children":[
                         {"tag":"td","children":[
-                            {"tag":"div","class":"cart-dragger","children":[
-                                {"tag":"span","html":""},
-                                {"tag":"span","html":""}
-                            ]}
-                        ]},
-                        {"tag":"td","children":[
                             {"tag":"a","href":"#","data-id":"${id}","class":"deleteItem","children":[
                                 {"tag":"span", "class":"glyphicon glyphicon-remove-circle","html":""}
-                            ],"html":"Remove"}
+                            ],"html":"&nbsp;"}
                         ]},
                         {"tag":"td","children":[
                             {"tag":"div","class":"cart-img","children":[
@@ -103,7 +97,7 @@
     </script>
     <style>
         .deleteItem{
-            font-size: 16px;
+            font-size: 24px;
             color: #cc0000;
         }
         .alert{
