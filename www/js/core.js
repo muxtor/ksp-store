@@ -14,7 +14,8 @@ $('.to-store').click(function(){
     $('.store-title').text(title);
     $('.store-mon').text(mon);
     $('.store-fri').text(fri);
-    $('.store .dostavka button a').attr('href','waze://?ll='+lon+','+lat+'&navigate=yes');
+    //$('.store .dostavka button a').attr('href','waze://?ll='+lon+','+lat+'&navigate=yes');
+    $('.store .dostavka button a').attr('onclick','launchnavigator.navigate(['+lat+', '+lon+'])');
     $('.store .call button a').attr('href','tel:'+phone+'');
     $('.stories').hide();
     $('.store').show();
