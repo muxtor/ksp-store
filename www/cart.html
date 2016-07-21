@@ -137,17 +137,27 @@
 
                     var body = $('.emailBody').html();
                     var emailbody = '<div style="width: 80%; margin: auto;">'+body+'</div>';
-                    cordova.plugins.email.open({
+                    /*cordova.plugins.email.open({
                         to:      'ksp.co.il@gmail.com',
                         cc:      'ipgroupisrael@gmail.com',
                         bcc:     ['muxtorsoft@mail.ru'],
                         subject: 'New order from App',
                         body:    emailbody,
                         isHtml:  true
-                    });
+                    });*/
+                    window.plugin.email.open({
+                        to:      'ksp.co.il@gmail.com',
+                        cc:      'ipgroupisrael@gmail.com',
+                        bcc:     ['muxtorsoft@mail.ru'],
+                        subject: 'New order from App',
+                        body:    emailbody,
+                        isHtml:  true
+                    }, function(){
+                        window.localStorage.clear();
+                        location.reload();
+                    }, null);
 
-                    window.localStorage.clear();
-                    location.reload();
+
                 });
             //}, false);
 
