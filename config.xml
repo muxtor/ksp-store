@@ -39,6 +39,7 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="cordova-plugin-email-composer" version="0.8.3" source="npm" />
+  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="3" />
   <icon src="icon.png"/>
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
