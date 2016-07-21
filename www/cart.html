@@ -126,25 +126,30 @@
             //document.addEventListener('deviceready', function () {
                 // cordova.plugins.email is now available
 
-                $('.userInfoForm').submit(function () {
-                    $('.body_fisrtname').html($('form.userInfoForm .firstname').val());
-                    $('.body_lastname').html($('form.userInfoForm .lastname').val());
-                    $('.body_address').html($('form.userInfoForm .address').val());
-                    $('.body_phone').html($('form.userInfoForm .phone').val());
-                    $('.body_email').html($('form.userInfoForm .email').val());
-                    $('.body_city').html($('form.userInfoForm .city').val());
-                    $('.body_pays').html($('form.userInfoForm .pays').val());
+            $('.userInfoForm').submit(function () {
+                return false;
+            });
 
-                    var body = $('.emailBody').html();
-                    var emailbody = '<div style="width: 80%; margin: auto;">'+body+'</div>';
-                    /*cordova.plugins.email.open({
-                        to:      'ksp.co.il@gmail.com',
-                        cc:      'ipgroupisrael@gmail.com',
-                        bcc:     ['muxtorsoft@mail.ru'],
-                        subject: 'New order from App',
-                        body:    emailbody,
-                        isHtml:  true
-                    });*/
+            $('.userInfoForm .sentEmail').click(function () {
+                $('.body_fisrtname').html($('form.userInfoForm .firstname').val());
+                $('.body_lastname').html($('form.userInfoForm .lastname').val());
+                $('.body_address').html($('form.userInfoForm .address').val());
+                $('.body_phone').html($('form.userInfoForm .phone').val());
+                $('.body_email').html($('form.userInfoForm .email').val());
+                $('.body_city').html($('form.userInfoForm .city').val());
+                $('.body_pays').html($('form.userInfoForm .pays').val());
+
+                var body = $('.emailBody').html();
+                var emailbody = '<div style="width: 80%; margin: auto;">'+body+'</div>';
+                /*cordova.plugins.email.open({
+                 to:      'ksp.co.il@gmail.com',
+                 cc:      'ipgroupisrael@gmail.com',
+                 bcc:     ['muxtorsoft@mail.ru'],
+                 subject: 'New order from App',
+                 body:    emailbody,
+                 isHtml:  true
+                 });*/
+                if(window.plugin.email){
                     window.plugin.email.open({
                         to:      'ksp.co.il@gmail.com',
                         cc:      'ipgroupisrael@gmail.com',
@@ -153,12 +158,57 @@
                         body:    emailbody,
                         isHtml:  true
                     }, function(){
+                        navigator.notification.alert(
+                                'Order sent to manager!',         // message
+                                null,                 // callback
+                                'Cart',           // title
+                                'OK'                  // buttonName
+                        );
                         window.localStorage.clear();
                         location.reload();
                     }, null);
+                }else if(window.plugins.email){
+                    window.plugins.email.open({
+                        to:      'ksp.co.il@gmail.com',
+                        cc:      'ipgroupisrael@gmail.com',
+                        bcc:     ['muxtorsoft@mail.ru'],
+                        subject: 'New order from App',
+                        body:    emailbody,
+                        isHtml:  true
+                    }, function(){
+                        navigator.notification.alert(
+                                'Order sent to manager!',         // message
+                                null,                 // callback
+                                'Cart',           // title
+                                'OK'                  // buttonName
+                        );
+                        window.localStorage.clear();
+                        location.reload();
+                    }, null);
+                }else{
+                    $.post(
+                            "http://nadiros.co.il/ksp/email.php",
+                            {
+                                from: $('form.userInfoForm .email').val(),
+                                body: emailbody
+                            },
+                            onAjaxSuccess
+                    );
 
+                    function onAjaxSuccess(data)
+                    {
+                        navigator.notification.alert(
+                                'Order sent to manager!',         // message
+                                null,                 // callback
+                                'Cart',           // title
+                                'OK'                  // buttonName
+                        );
+                        window.localStorage.clear();
+                        location.reload();
+                    }
+                }
 
-                });
+            });
             //}, false);
 
 
@@ -388,7 +438,7 @@
                             </div>
                         </div>
                         <div class="cf-row">
-                            <div class="cf-submit"><input type="submit" value="שלח הזמנה"></div>
+                            <div class="cf-submit"><input class="sentEmail" type="submit" value="שלח הזמנה"></div>
                         </div>
                     </form>
                 </div>

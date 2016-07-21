@@ -1,3 +1,4 @@
 # phpstorme
 .idea
-/platforms/
+/platforms/browser/
+/platforms/platforms.json

@@ -15,12 +15,20 @@ $('.to-store').click(function(){
     $('.store-mon').text(mon);
     $('.store-fri').text(fri);
     //$('.store .dostavka button a').attr('href','waze://?ll='+lon+','+lat+'&navigate=yes');
-    $('.store .dostavka button a').attr('onclick','launchnavigator.navigate(['+lat+', '+lon+'])');
+    //$('.store .dostavka button a').attr('onclick','launchnavigator.navigate(['+lat+', '+lon+'])');
+    $('.store .dostavka button a').attr('data-lat',lat);
+    $('.store .dostavka button a').attr('data-lng',lon);
     $('.store .call button a').attr('href','tel:'+phone+'');
     $('.stories').hide();
     $('.store').show();
     return false;
-})
+});
+/*$('.store .dostavka button a').click(function () {
+    WazeNavigator.navigateByPosition({
+        lat: $(this).attr('data-lat'), // latitude
+        lng: $(this).attr('data-lng') // longitude
+    });
+});*/
 
 function $_GET(key) {
     var s = window.location.search;
