@@ -135,7 +135,7 @@ var cartList = function(storageName) {
                 count = count + 1;
             });
             if(count==1){
-                window.localStorage.clear();
+                storage.removeItem(storageName);//window.localStorage.clear();
             }else{
                 var newItems = new Object();
                 $.each( items, function( key, value ) {
