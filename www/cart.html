@@ -163,64 +163,6 @@
                     //storage.removeItem("cart");//window.localStorage.clear();
                     //location.reload();
                 }
-                /*if(window.plugin.email){
-                    window.plugin.email.open({
-                        to:      'ksp.co.il@gmail.com',
-                        cc:      'ipgroupisrael@gmail.com',
-                        bcc:     ['muxtorsoft@mail.ru'],
-                        subject: 'New order from App',
-                        body:    emailbody,
-                        isHtml:  true
-                    }, function(){
-                        navigator.notification.alert(
-                                'Order sent to manager!',         // message
-                                null,                 // callback
-                                'Cart',           // title
-                                'OK'                  // buttonName
-                        );
-                        window.localStorage.clear();
-                        location.reload();
-                    }, null);
-                }else if(window.plugins.email){
-                    window.plugins.email.open({
-                        to:      'ksp.co.il@gmail.com',
-                        cc:      'ipgroupisrael@gmail.com',
-                        bcc:     ['muxtorsoft@mail.ru'],
-                        subject: 'New order from App',
-                        body:    emailbody,
-                        isHtml:  true
-                    }, function(){
-                        navigator.notification.alert(
-                                'Order sent to manager!',         // message
-                                null,                 // callback
-                                'Cart',           // title
-                                'OK'                  // buttonName
-                        );
-                        window.localStorage.clear();
-                        location.reload();
-                    }, null);
-                }else{
-                    $.post(
-                            "http://nadiros.co.il/ksp/email.php",
-                            {
-                                from: $('form.userInfoForm .email').val(),
-                                body: emailbody
-                            },
-                            onAjaxSuccess
-                    );
-
-                    function onAjaxSuccess(data)
-                    {
-                        navigator.notification.alert(
-                                'Order sent to manager!',         // message
-                                null,                 // callback
-                                'Cart',           // title
-                                'OK'                  // buttonName
-                        );
-                        window.localStorage.clear();
-                        location.reload();
-                    }
-                }*/
 
             });
             //}, false);

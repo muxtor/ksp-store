@@ -14,6 +14,41 @@
     <script type="text/javascript" src="js/json2html.js"></script>
     <script type="text/javascript" src="js/jquery.json2html.js"></script>
     <script src="js/core.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.messageForm').submit(function () {
+                return false;
+            });
+
+            $('.messageForm .sentMessage').click(function () {
+
+                $.post(
+                        "http://nadiros.co.il/ksp/message.php",
+                        {
+                            from: $('form.messageForm .email').val(),
+                            subject: $('form.messageForm .name').val(),
+                            message: $('form.messageForm .message').val(),
+                        },
+                        onAjaxSuccess
+                );
+
+                function onAjaxSuccess()
+                {
+                    navigator.notification.alert(
+                            'Message sent to manager!',         // message
+                            null,                 // callback
+                            'Message',           // title
+                            'OK'                  // buttonName
+                    );
+                    //var storage = window.localStorage;
+                    //storage.removeItem("cart");//window.localStorage.clear();
+                    //location.reload();
+                    $('form.messageForm').reset();
+                }
+
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="top">
@@ -89,11 +124,11 @@
     <div class="inners">
         <div class="title">צרו קשר איתנו</div>
         <div class="feedback">
-            <form>
-                <div><input class="f-input" type="text" placeholder="שם מלא"/></div>
-                <div><input class="f-input" type="text" placeholder="כתובת דוא’’ל"/></div>
-                <div><textarea class="f-input" placeholder="ההודעה"></textarea></div>
-                <div><input class="f-submit" type="submit" value="שלחו הודעה"/></div>
+            <form class="messageForm" action="#" method="post">
+                <div><input class="f-input name" type="text" name="name" placeholder="שם מלא"/></div>
+                <div><input class="f-input email" type="text" name="email" placeholder="כתובת דוא’’ל"/></div>
+                <div><textarea class="f-input message" name="message" placeholder="ההודעה"></textarea></div>
+                <div><input class="f-submit sentMessage" type="submit" value="שלחו הודעה"/></div>
             </form>
         </div>
     </div>
