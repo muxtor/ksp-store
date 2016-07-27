@@ -45,6 +45,9 @@
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="nl.x-services.plugins.socialsharing" version="5"/>
+  <plugin name="phonegap-plugin-push" spec="1.6.0">
+    <param name="SENDER_ID" value="820935633591" />
+  </plugin>
 
 
   <!-- Allow links to example.com -->
