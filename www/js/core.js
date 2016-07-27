@@ -29,6 +29,7 @@ $('.store .dostavka button a').click(function () {
         lng: $(this).attr('data-lng') // longitude
     });*/
     launchnavigator.navigate([$(this).attr('data-lat'), $(this).attr('data-lng')]);
+    return false;
 });
 
 function $_GET(key) {
