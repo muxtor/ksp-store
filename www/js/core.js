@@ -293,37 +293,42 @@ $(document).ready(function(){
     }
 
 
-    var push = PushNotification.init({
-        android: {
-            senderID: "820935633591"
-        },
-        browser: {
-            pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-        },
-        ios: {
-            alert: "true",
-            badge: "true",
-            sound: "true"
-        },
-        windows: {}
-    });
+    document.addEventListener("deviceready", onPush, false);
 
-    push.on('registration', function(data) {
-        // data.registrationId
-    });
+    function onPush() {
+        var push = PushNotification.init({
+            android: {
+                senderID: "820935633591"
+            },
+            browser: {
+                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+            },
+            ios: {
+                alert: "true",
+                badge: "true",
+                sound: "true"
+            },
+            windows: {}
+        });
 
-    push.on('notification', function(data) {
-        // data.message,
-        // data.title,
-        // data.count,
-        // data.sound,
-        // data.image,
-        // data.additionalData
-    });
+        push.on('registration', function(data) {
+            // data.registrationId
+        });
 
-    push.on('error', function(e) {
-        // e.message
-    });
+        push.on('notification', function(data) {
+            // data.message,
+            // data.title,
+            // data.count,
+            // data.sound,
+            // data.image,
+            // data.additionalData
+        });
+
+        push.on('error', function(e) {
+            // e.message
+        });
+    }
+
 
 
 });

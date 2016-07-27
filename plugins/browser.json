@@ -7,16 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-x-socialsharing": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.kspstore.start"
         },
-        "cordova-plugin-whitelist": {
+        "nl.x-services.plugins.socialsharing": {
+            "PACKAGE_NAME": "com.kspstore.start"
+        },
+        "phonegap-plugin-push": {
+            "PACKAGE_NAME": "com.kspstore.start"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "com.kspstore.start"
+        },
+        "cordova-plugin-actionsheet": {
             "PACKAGE_NAME": "com.kspstore.start"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.kspstore.start"
         },
-        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+        "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.kspstore.start"
         }
     },
