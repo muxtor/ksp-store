@@ -45,7 +45,6 @@
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="nl.x-services.plugins.socialsharing" version="5"/>
-  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" version="3"/>
 
 
   <!-- Allow links to example.com -->

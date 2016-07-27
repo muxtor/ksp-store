@@ -23,12 +23,13 @@ $('.to-store').click(function(){
     $('.store').show();
     return false;
 });
-/*$('.store .dostavka button a').click(function () {
-    WazeNavigator.navigateByPosition({
+$('.store .dostavka button a').click(function () {
+    /*WazeNavigator.navigateByPosition({
         lat: $(this).attr('data-lat'), // latitude
         lng: $(this).attr('data-lng') // longitude
-    });
-});*/
+    });*/
+    launchnavigator.navigate([$(this).attr('data-lat'), $(this).attr('data-lng')]);
+});
 
 function $_GET(key) {
     var s = window.location.search;
