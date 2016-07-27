@@ -23,14 +23,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-waze-navigator": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-waze-navigator"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "source": {
             "type": "registry",

@@ -24,12 +24,21 @@ $('.to-store').click(function(){
     return false;
 });
 $('.store .dostavka button a').click(function () {
-    WazeNavigator.navigateByPosition({
+    //wazelink.open( 'waze://?ll='+$(this).attr('data-lat')+','+$(this).attr('data-lng')+'' );
+    /*WazeNavigator.navigateByPosition({
         lat: $(this).attr('data-lat'), // latitude
         lng: $(this).attr('data-lng') // longitude
-    });
-    //launchnavigator.navigate([$(this).attr('data-lat'), $(this).attr('data-lng')]);
-    return false;
+    });*/
+    launchnavigator.navigate(
+        [$(this).attr('data-lat'), $(this).attr('data-lng')],
+        null,
+        function(){
+            alert("Plugin success");
+        },
+        function(error){
+            alert("Plugin error: "+ error);
+        }
+    );
 });
 
 function $_GET(key) {
