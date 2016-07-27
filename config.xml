@@ -51,6 +51,7 @@
     <param name="SENDER_ID" value="820935633591" />
   </plugin>
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />
+  <plugin name="cordova-waze-navigator"/>
 
 
   <!-- Allow links to example.com -->

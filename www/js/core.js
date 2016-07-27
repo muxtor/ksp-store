@@ -24,11 +24,11 @@ $('.to-store').click(function(){
     return false;
 });
 $('.store .dostavka button a').click(function () {
-    /*WazeNavigator.navigateByPosition({
+    WazeNavigator.navigateByPosition({
         lat: $(this).attr('data-lat'), // latitude
         lng: $(this).attr('data-lng') // longitude
-    });*/
-    launchnavigator.navigate([$(this).attr('data-lat'), $(this).attr('data-lng')]);
+    });
+    //launchnavigator.navigate([$(this).attr('data-lat'), $(this).attr('data-lng')]);
     return false;
 });
 
