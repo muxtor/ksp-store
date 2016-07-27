@@ -50,7 +50,7 @@
   <plugin name="phonegap-plugin-push" spec="1.6.0">
     <param name="SENDER_ID" value="820935633591" />
   </plugin>
-  <!--<plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />-->
+  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />
 
 
   <!-- Allow links to example.com -->
