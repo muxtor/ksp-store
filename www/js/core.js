@@ -14,8 +14,6 @@ $('.to-store').click(function(){
     $('.store-title').text(title);
     $('.store-mon').text(mon);
     $('.store-fri').text(fri);
-    //$('.store .dostavka button a').attr('href','waze://?ll='+lon+','+lat+'&navigate=yes');
-    //$('.store .dostavka button a').attr('onclick','launchnavigator.navigate(['+lat+', '+lon+'])');
     $('.store .dostavka button a').attr('data-lat',lat);
     $('.store .dostavka button a').attr('data-lng',lon);
     $('.store .call button a').attr('href','tel:'+phone+'');
@@ -24,16 +22,11 @@ $('.to-store').click(function(){
     return false;
 });
 $('.store .dostavka button a').click(function () {
-    //wazelink.open( 'waze://?ll='+$(this).attr('data-lat')+','+$(this).attr('data-lng')+'' );
-    /*WazeNavigator.navigateByPosition({
-        lat: $(this).attr('data-lat'), // latitude
-        lng: $(this).attr('data-lng') // longitude
-    });*/
     launchnavigator.navigate(
         [$(this).attr('data-lat'), $(this).attr('data-lng')],
         null,
         function(){
-            alert("Plugin success");
+            //alert("Plugin success");
         },
         function(error){
             alert("Plugin error: "+ error);
