@@ -52,7 +52,6 @@
   </plugin>
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />
 
-
   <!-- Allow links to example.com -->
   <allow-navigation href="*" />
   <allow-navigation href="http://nadiros.co.il/*" />
