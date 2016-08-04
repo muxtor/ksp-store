@@ -85,13 +85,18 @@
                 $('.addtocart').click(function(){
                     var list = new cartList("cart");
                     list.add($(this).attr('data-id'),"{ \"id\" : \""+$(this).attr('data-id')+"\", \"count\" : \""+list.countItem($(this).attr('data-id'))+"\", \"name\" : \""+$(this).attr('data-name')+"\", \"img\" : \""+$(this).attr('data-img')+"\", \"price\" : \""+$(this).attr('data-price')+"\" }");
-                 /*var alert = '<div class="alert alert-success alert-dismissible fade in" role="alert">'+
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                            '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                    '<strong>Item successfully added to cart!</strong>'+
-                    '</div>';
-                    $('body').append(alert);*/
+
+                    if(navigator.notification){
+                        navigator.notification.alert(
+                                'המוצר נוסף בהצלחה',         // message
+                                null,                 // callback
+                                'Cart',           // title
+                                'OK'                  // buttonName
+                        );
+                    }else{
+                        alert('המוצר נוסף בהצלחה');
+                    }
+
                 });
 
                 var transform5 =[

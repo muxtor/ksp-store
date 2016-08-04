@@ -959,9 +959,14 @@ table .s_td {
         line-height: 45px;
     }
 
-    .filial .f-wrap{
-        margin: 0;
+    /*.filial .f-wrap{
+        margin: 0 10px;
         margin-right: auto;
+        width: 130px;
+    }*/
+    .filial .f-buttons button a {
+        font-size: 18px;
+        line-height: 38px;
     }
 }
 @media screen and (max-width: 460px) {
@@ -1086,6 +1091,11 @@ table .s_td {
     .cartbutton a img{
         width: 45px;
     }
+
+    .filial .f-buttons button a {
+        font-size: 16px;
+        line-height: 38px;
+    }
 }
 @media screen and (max-width: 400px) {
     /*Index*/
@@ -1146,6 +1156,15 @@ table .s_td {
         font-size: 11px;
     }
     .filial .f-wrap{
+        margin: 0 10px;
+        margin-right: auto;
+        width: 112px;
+    }
+    .filial .f-buttons button a {
+        font-size: 14px;
+        line-height: 38px;
+    }
+    /*.filial .f-wrap{
         margin: auto;
         margin-right: auto;
     }
@@ -1158,7 +1177,7 @@ table .s_td {
         float: none;
         width: 60%;
         margin: 25px auto;
-    }
+    }*/
 }
 @media screen and (max-width: 320px) {
     /*Index*/

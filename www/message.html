@@ -34,12 +34,18 @@
 
                 function onAjaxSuccess()
                 {
-                    navigator.notification.alert(
-                            'Message sent to manager!',         // message
-                            null,                 // callback
-                            'Message',           // title
-                            'OK'                  // buttonName
-                    );
+                    if(navigator.notification){
+                        navigator.notification.alert(
+                                'ההודעה נשלחה בהצלחה',         // message
+                                null,                 // callback
+                                'Message',           // title
+                                'OK'                  // buttonName
+                        );
+                    }else{
+                        alert('ההודעה נשלחה בהצלחה');
+                    }
+
+
                     //var storage = window.localStorage;
                     //storage.removeItem("cart");//window.localStorage.clear();
                     //location.reload();

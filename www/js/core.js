@@ -260,7 +260,7 @@ function countSet(){
 $(document).ready(function(){
     countSet();
 
-    document.addEventListener("deviceready", onOnline, false);
+    //document.addEventListener("deviceready", onOnline, false);
 
     function onOnline() {
 

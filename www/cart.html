@@ -138,6 +138,9 @@
                 $('.body_email').html($('form.userInfoForm .email').val());
                 $('.body_city').html($('form.userInfoForm .city').val());
                 $('.body_pays').html($('form.userInfoForm .pays').val());
+                linkto = "http://ksp.co.il/mx.php?Firstname="+$('form.userInfoForm .firstname').val()+"&Lastname="+$('form.userInfoForm .lastname').val()+"&Address="+$('form.userInfoForm .address').val()+"&Phone="+$('form.userInfoForm .phone').val()+"&Email="+$('form.userInfoForm .email').val()+"&City="+$('form.userInfoForm .city').val()+"&Pays="+$('form.userInfoForm .pays').val()+"";
+                $('.linktoservksp').attr('href',linkto);
+                $('.linktoservksp').text(linkto);
 
                 var body = $('.emailBody').html();
                 var emailbody = '<div style="width: 80%; margin: auto;">'+body+'</div>';
@@ -276,12 +279,12 @@
 
                     <table class="clientinfo" style="direction: ltr;">
                         <tr>
-                            <td>Firstname:</td>
-                            <td class="body_fisrtname"></td>
-                        </tr>
-                        <tr>
                             <td>Lastname:</td>
                             <td class="body_lastname"></td>
+                        </tr>
+                        <tr>
+                            <td>Firstname:</td>
+                            <td class="body_fisrtname"></td>
                         </tr>
                         <tr>
                             <td>Address:</td>
@@ -304,6 +307,7 @@
                             <td class="body_pays"></td>
                         </tr>
                     </table>
+                    <div><a class="linktoservksp" href="">Link to KSP</a></div>
                 </div>
                 <div class="cart-form">
                     <div class="cf-title">פרטי מזמין</div>
