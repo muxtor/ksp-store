@@ -29,7 +29,7 @@ $('.store .dostavka button a').click(function () {
             //alert("Plugin success");
         },
         function(error){
-            alert("Plugin error: "+ error);
+            //alert("Plugin error: "+ error);
         }
     );
 });
