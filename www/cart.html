@@ -156,12 +156,17 @@
 
                 function onAjaxSuccess()
                 {
-                    navigator.notification.alert(
-                            'Order sent to manager!',         // message
-                            null,                 // callback
-                            'Cart',           // title
-                            'OK'                  // buttonName
-                    );
+                    if(navigator.notification){
+                        navigator.notification.alert(
+                                'הזמנך נקלטה במערכת בהצלחה. תודה',         // message
+                                null,                 // callback
+                                'הודעת מערכת',           // title
+                                'OK'                  // buttonName
+                        );
+                    }else{
+                        alert('הזמנך נקלטה במערכת בהצלחה. תודה');
+                    }
+                    
                     //var storage = window.localStorage;
                     //storage.removeItem("cart");//window.localStorage.clear();
                     //location.reload();
