@@ -262,7 +262,7 @@ $(document).ready(function(){
 
     //document.addEventListener("deviceready", onOnline, false);
 
-    function onOnline() {
+    /*function onOnline() {
 
         // Handle the online event
         var networkState = navigator.connection.type;
@@ -293,7 +293,7 @@ $(document).ready(function(){
         }
 
         setTimeout(onOnline,60000);
-    }
+    }*/
 
 
     document.addEventListener("deviceready", onPush, false);
