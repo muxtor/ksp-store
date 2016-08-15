@@ -12,6 +12,7 @@
   </description>
   <author href="http://mediasoft.co.il" email="info@mediasoft.co.il">Mediasoft</author>
   <content src="index.html"/>
+  <preference name="phonegap-version" value="3.7.0" />
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
@@ -29,8 +30,8 @@
   <preference name="android-installLocation" value="auto"/>
   <gap:plugin name="org.apache.cordova.console"/>
   <gap:plugin name="org.apache.cordova.device"/>
-  <gap:plugin name="org.apache.cordova.dialogs" version="0.3.0" source="pgb"/>
-  <!--<gap:plugin name="org.apache.cordova.network-information"/>-->
+  <gap:plugin name="org.apache.cordova.dialogs"/>
+  <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <!--<gap:plugin name="de.appplant.cordova.plugin.email-composer"/>
