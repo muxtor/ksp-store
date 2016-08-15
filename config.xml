@@ -29,7 +29,7 @@
   <preference name="android-installLocation" value="auto"/>
   <gap:plugin name="org.apache.cordova.console"/>
   <gap:plugin name="org.apache.cordova.device"/>
-  <gap:plugin name="org.apache.cordova.dialogs"/>
+  <gap:plugin name="org.apache.cordova.dialogs" version="0.3.0" source="pgb"/>
   <!--<gap:plugin name="org.apache.cordova.network-information"/>-->
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
