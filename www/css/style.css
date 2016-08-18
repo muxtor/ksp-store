@@ -6,6 +6,9 @@ body{
     padding-top:43px;
     padding-bottom: 75px;
 }
+.cat-menu .dropdown-menu{
+    overflow-y: auto;
+}
 .preloader{
     display: none;
     position: fixed;

@@ -258,8 +258,11 @@ function countSet(){
     $('#cartitems').html(counts.count());
 }
 $(document).ready(function(){
+    $(".cat-menu .dropdown-menu").css("max-height", $(window).height()-120+"px"); //set height for menu
+
     countSet();
 
+    //$(".cat-menu .dropdown-menu").height(($(document).height()-120));
     //document.addEventListener("deviceready", onOnline, false);
 
     /*function onOnline() {
