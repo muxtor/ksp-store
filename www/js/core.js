@@ -1,7 +1,7 @@
 /**
  * Created by Ulugbek on 08.02.16.
  */
-$('.to-store').click(function(){
+/*$('.to-store').click(function(){
     title = $(this).attr('data-title');
     image = $(this).attr('data-img');
     mon = $(this).attr('data-mon');
@@ -20,7 +20,7 @@ $('.to-store').click(function(){
     $('.stories').hide();
     $('.store').show();
     return false;
-});
+});*/
 $('.store .dostavka button a').click(function () {
     launchnavigator.navigate(
         [$(this).attr('data-lat'), $(this).attr('data-lng')],
@@ -258,49 +258,8 @@ function countSet(){
     $('#cartitems').html(counts.count());
 }
 $(document).ready(function(){
-    $(".cat-menu .dropdown-menu").css("max-height", $(window).height()-120+"px"); //set height for menu
-
     countSet();
-
-    //$(".cat-menu .dropdown-menu").height(($(document).height()-120));
-    //document.addEventListener("deviceready", onOnline, false);
-
-    /*function onOnline() {
-
-        // Handle the online event
-        var networkState = navigator.connection.type;
-        if (networkState !== Connection.NONE) {
-            //device.uuid;
-            $.get("http://nadiros.co.il/ksp/push.php?uuid="+device.uuid,{},toPush);
-        }
-
-        function toPush(data) {
-            var pushes = JSON.parse(data);
-            cnt = Object.keys(pushes).length;
-            if(cnt > 0){
-                $.each(pushes, function( index, value ) {
-                    pushIt(value);
-                });
-            }
-        }
-
-        function pushIt(data) {
-            navigator.notification.alert(
-                data.push,         // message
-                null,                 // callback
-                'Notification from KSP',           // title
-                'OK'                  // buttonName
-            );
-            navigator.notification.vibrate(1000);
-            navigator.notification.beep(2);
-        }
-
-        setTimeout(onOnline,60000);
-    }*/
-
-
     document.addEventListener("deviceready", onPush, false);
-
     function onPush() {
         var push = PushNotification.init({
             android: {
@@ -334,7 +293,4 @@ $(document).ready(function(){
             // e.message
         });
     }
-
-
-
 });

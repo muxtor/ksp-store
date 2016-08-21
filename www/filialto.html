@@ -14,32 +14,23 @@
     <script type="text/javascript" src="js/json2html.js"></script>
     <script type="text/javascript" src="js/jquery.json2html.js"></script>
     <script src="js/core.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            showLoader();
-            //index last products
-            $.get("http://nadiros.co.il/ksp/store.php",{},store
-            ).fail(function() {
-                        hideLoader();
-                    });
-
-            function store(data)
-            {
-                var transform =[
-                    {"tag":"tr","children":[
-                        {"tag":"td","html":"${Name}"},
-                        {"tag":"td","html":"${City}"},
-                        {"tag":"td","children":[
-                            {"tag":"a","href":"filialto.html?title=${Name}&city=${City}&img=${img}&mon=${mon}&phone=${phone}&lon=${lon}&lat=${lat}&id=${id}","class":"to-store","data-title":"${Name}","data-city":"${City}","data-img":"${img}","data-mon":"${mon}","data-phone":"${phone}","data-lon":"${lon}","data-lat":"${lat}","id":"${id}","html":"למידע"}
-                        ]}
-                    ]}
-                ];
-
-                $('.table-list tbody').json2html(data,transform);
-                $.getScript("js/core.js");
-                hideLoader();
-            }
-
+    <script>
+        $(document).ready(function () {
+            title = $_GET('title');
+            image = $_GET('img');
+            mon = $_GET('mon');
+            fri = $_GET('fri');
+            phone = $_GET('phone');
+            city = $_GET('city');
+            lon = $_GET('lon');
+            lat = $_GET('lat');
+            $('.store-img').attr('src',image);
+            $('.store-title').html(decodeURIComponent(title));
+            $('.store-mon').text(mon);
+            $('.store-fri').text(fri);
+            $('.store .dostavka button a').attr('data-lat',lat);
+            $('.store .dostavka button a').attr('data-lng',lon);
+            $('.store .call button a').attr('href','tel:'+phone+'');
         })
     </script>
 </head>
@@ -115,24 +106,7 @@
         </div>
     </div>
     <div class="inners">
-        <div class="stories">
-            <div class="title">סניפי KSP מחשבים וסלולר</div>
-            <div class="table-list">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>עיר               </td>
-                        <td> כתובת  </td>
-                        <td>למידע</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="store" style="display: none;">
+        <div class="store">
             <div class="title store-title">כתובת ושעות פעילות</div>
             <div><img class="store-img" src="" style="width: 100%; margin-top: 5px;"/></div>
             <div class="title">כתובת ושעות פעילות</div>

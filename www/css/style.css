@@ -1255,3 +1255,54 @@ table .s_td {
     color: #fff;
     margin-left: 50px;
 }
+/*max-height*/
+@media screen and (max-height: 520px) {
+    .cat-menu .dropdown-menu{
+        max-height: 400px;
+    }
+}
+@media screen and (max-height: 480px) {
+    .cat-menu .dropdown-menu{
+        max-height: 360px;
+    }
+}
+@media screen and (max-height: 460px) {
+    .cat-menu .dropdown-menu{
+        max-height: 340px;
+    }
+}
+@media screen and (max-height: 420px) {
+    .cat-menu .dropdown-menu{
+        max-height: 300px;
+    }
+}
+@media screen and (max-height: 400px) {
+    .cat-menu .dropdown-menu{
+        max-height: 280px;
+    }
+}
+@media screen and (max-height: 380px) {
+    .cat-menu .dropdown-menu{
+        max-height: 260px;
+    }
+}
+@media screen and (max-height: 340px) {
+    .cat-menu .dropdown-menu{
+        max-height: 220px;
+    }
+}
+@media screen and (max-height: 320px) {
+    .cat-menu .dropdown-menu{
+        max-height: 200px;
+    }
+}
+@media screen and (max-height: 300px) {
+    .cat-menu .dropdown-menu{
+        max-height: 180px;
+    }
+}
+@media screen and (max-height: 280px) {
+    .cat-menu .dropdown-menu{
+        max-height: 160px;
+    }
+}
