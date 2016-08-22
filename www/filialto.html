@@ -26,6 +26,7 @@
             lat = $_GET('lat');
             $('.store-img').attr('src',image);
             $('.store-title').html(decodeURIComponent(title));
+            $('.tocity').html(decodeURIComponent(city));
             $('.store-mon').text(mon);
             $('.store-fri').text(fri);
             $('.store .dostavka button a').attr('data-lat',lat);
@@ -111,7 +112,7 @@
             <div><img class="store-img" src="" style="width: 100%; margin-top: 5px;"/></div>
             <div class="title">כתובת ושעות פעילות</div>
             <div class="filial">
-                <div>רחוב צה”ל 1 מול משרד הרישוי אשדוד מרכז</div>
+                <div class="tocity">רחוב צה”ל 1 מול משרד הרישוי אשדוד מרכז</div>
                 <div>ימים א’-ה’:  <span class="store-mon"></span></div>
                 <div>ימי ו’ וחג:   <span class="store-fri"></span></div>
                 <div class="f-buttons">
