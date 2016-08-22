@@ -263,7 +263,7 @@ $(document).ready(function(){
     function onPush() {
         var push = PushNotification.init({
             android: {
-                senderID: "820935633591"
+                senderID: "231639085469"
             },
             browser: {
                 pushServiceURL: 'http://push.api.phonegap.com/v1/push'
